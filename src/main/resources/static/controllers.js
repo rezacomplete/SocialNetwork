@@ -1,39 +1,40 @@
 socialNetworkApp.controller("homeController", function($scope, $route, $resource, $location, $http) {
     
-    comment1 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tincidunt eget ante eget feugiat. Praesent adipiscing tortor eu tincidunt tempus. Sed convallis est in ante sodales, sit amet consectetur leo commodo.";
+	var comment1 = {id:100, text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tincidunt eget ante eget feugiat. Praesent adipiscing tortor eu tincidunt tempus. Sed convallis est in ante sodales, sit amet consectetur leo commodo."};
     reply11 = "Sed convallis est in ante sodales, sit amet consectetur leo commodo.";
     reply12 = "Sed convallis est in ante sodales, sit amet consectetur leo commodo.";
     var replies1 = [{text:reply11}, {text:reply12}];
     var userDetail1 = {numberOfLikes:7, comment:comment1, userName:"DevUser1", replies:replies1};
     
-    comment2 = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tincidunt eget ante eget feugiat. Praesent adipiscing tortor eu.";
+    var comment2 = {id:110, text:"Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tincidunt eget ante eget feugiat. Praesent adipiscing tortor eu."};
     reply21 = "Sed convallis est in ante sodales, sit amet consectetur leo commodo.";
     var replies2 = [{text:reply21}];
     var userDetail2 = {numberOfLikes:8, comment:comment2, userName:"DevUser2", replies:replies2};
 
-    comment3 = "Adipiscing elit. In tincidunt eget ante eget feugiat. Praesent adipiscing tortor eu tincidunt tempus. Sed convallis est in ante sodales, sit amet consectetur leo commodo.";
+    var comment3 = {id:120, text:"Adipiscing elit. In tincidunt eget ante eget feugiat. Praesent adipiscing tortor eu tincidunt tempus. Sed convallis est in ante sodales, sit amet consectetur leo commodo."};
     reply31 = "Sed convallis est in ante sodales, sit amet consectetur leo commodo.";
     reply32 = "Sed convallis est in ante sodales, sit amet consectetur leo commodo.";
     var replies3 = [{text:reply31}, {text:reply32}];
     var userDetail3 = {numberOfLikes:2, comment:comment3, userName:"DevUser3", replies:replies3};
     
     $scope.userDetails = [userDetail1, userDetail2, userDetail3];
-    $scope.comment = "";
+    $scope.commentText = "";
         
     $scope.addWallComment = function() {
-    	$http.post("/addComment", {comment:$scope.comment})
+    	$http.post("/addComment", {comment:$scope.commentText})
     		 .then(function(response) {
-    			 var userDetail = {numberOfLikes:0, comment:response.data, userName:"DevUserXXX", replies:[]};
+    			 var comment = {id:response.data, text:$scope.commentText};
+    			 var userDetail = {numberOfLikes:0, comment:comment, userName:"DevUserXXX", replies:[]};
     			 $scope.userDetails.unshift(userDetail);
-    			 $scope.comment = "";
+    			 $scope.commentText = "";
     		  });
     }
     	
-    $scope.addReplyToComment = function() {
-    	$http.post("/addReply", {reply:$scope.reply})
-    		 .then(function(response)) {
-    			
-    		 }
+    $scope.addReply = function(replyText, commentId) {
+    	$http.post("/addReply?reply=" + replyText + "&commentId=" + commentId)
+    		 .then(function(response) {
+    			 
+    		 });
     }
     
     groupName1 = "Sample Group One";
