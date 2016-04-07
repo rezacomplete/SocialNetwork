@@ -11,10 +11,17 @@ import au.com.reza.entity.Wall;
 public class WallController {
 
 	@RequestMapping(value="/addComment", method=RequestMethod.POST)
-    public String addCommentToWall(@RequestBody Wall wall) {
-		// TODO save message
+    public long addCommentToWall(@RequestBody Wall wall) {
+		// TODO save message and return the message id
 		System.out.println(wall.getComment());
-        return wall.getComment();
+        return 313;
+    }
+
+	@RequestMapping(value="/addReply", method=RequestMethod.POST)
+    public void addReply(@RequestParam("reply") String reply, @RequestParam("commentId") String commentId) {
+		// TODO save message and return the message id
+		System.out.println(reply);
+		System.out.println(commentId);
     }
 
     public static void main(String[] args) throws Exception {
