@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import au.com.reza.entity.Wall;
 
 @RestController
-@EnableAutoConfiguration
 public class WallController {
 
 	@RequestMapping(value="/addComment", method=RequestMethod.POST)
